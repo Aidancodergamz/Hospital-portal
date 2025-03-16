@@ -13,7 +13,7 @@ export default function Home() {
         className="mt-12 bg-white p-8 rounded-3xl shadow-xl max-w-3xl"
       >
         <h1 className="text-3xl font-bold text-blue-600">Welcome to the KidsCare Portal! 🌈</h1>
-        <p className="text-gray-600 mt-3">Helping children, parents, and doctors stay connected.</p>
+        <p className="text-gray-600 mt-3">Helping children, parents, and doctors stay connected...</p>
       </motion.div>
 
       {/* Action Buttons */}
