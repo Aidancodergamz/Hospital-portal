@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -6,25 +7,44 @@ export default function Login() {
     password: "",
   });
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.username || !formData.password) {
       setError("Username and password are required");
       return;
     }
-    setError("");
-    alert("Login successful!");
-    console.log("Logged in user:", formData);
+
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Login failed");
+        return;
+      }
+
+      localStorage.setItem("username", JSON.stringify(data.username)); // Store user info
+      navigate("/userdash"); // Redirect to UserDash
+    } catch (error) {
+      setError("Server error, please try again later");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-200 to-pink-100 flex flex-col items-center justify-center text-center p-6">
-
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}

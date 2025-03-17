@@ -2,11 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 const app = express();
 app.use(cors());
 app.use(express.json()); // Allow JSON data in requests
+
+const SECRET_KEY = process.env.JWT_SECRET || "your_jwt_secret"; // Change this to an environment variable
 
 // Create MySQL Connection
 const db = mysql.createConnection({
@@ -25,7 +28,25 @@ db.connect((err) => {
   }
 });
 
-// API Route to Handle Registration (WITH PASSWORD HASHING)
+// Middleware to verify JWT
+token
+const verifyToken = (req, res, next) => {
+  const token = req.headers["authorization"];
+  
+  if (!token) {
+    return res.status(403).json({ error: "Access denied. No token provided." });
+  }
+
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: "Invalid token." });
+  }
+};
+
+// API Route to Handle Registration
 app.post("/register", async (req, res) => {
   const { username, firstname, surname, email, department, password, dob } = req.body;
 
@@ -34,11 +55,9 @@ app.post("/register", async (req, res) => {
   }
 
   try {
-    // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Insert user into database with hashed password
     const sql = "INSERT INTO users (username, first_name, surname, email, department, password, dob) VALUES (?, ?, ?, ?, ?, ?, ?)";
     db.query(sql, [username, firstname, surname, email, department, hashedPassword, dob], (err, result) => {
       if (err) {
@@ -50,6 +69,43 @@ app.post("/register", async (req, res) => {
     console.error("Error hashing password:", error);
     res.status(500).json({ error: "Server error" });
   }
+});
+
+// API Route to Handle Login
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: "Username and password are required" });
+  }
+
+  const sql = "SELECT * FROM users WHERE username = ?";
+  db.query(sql, [username], async (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(401).json({ error: "Invalid username or password" });
+    }
+
+    const user = results[0];
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid username or password" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
+
+    res.json({ message: "Login successful", token });
+  });
+});
+
+// Protected Route: User Dashboard
+app.get("/userdash", verifyToken, (req, res) => {
+  res.json({ message: "Welcome to your dashboard!", user: req.user });
 });
 
 // Start the Server
