@@ -16,6 +16,8 @@ export default function Home() {
         <p className="text-gray-600 mt-3">Helping children, parents, and doctors stay connected.</p>
       </motion.div>
 
+      <h2>Hello World, this is a heading two</h2>
+
       {/* Action Buttons */}
       <div className="mt-10 flex flex-wrap gap-6 justify-center">
         <ActionButton icon={FaUser} label="For Parents" color="bg-yellow-400" />
