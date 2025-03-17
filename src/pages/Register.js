@@ -6,9 +6,10 @@ export default function Register() {
     firstname: "",
     surname: "",
     email: "",
+    department: "",
     password: "",
     confirmPassword: "",
-    userType: "",
+    dob: "",
   });
   const [error, setError] = useState("");
 
@@ -43,9 +44,10 @@ export default function Register() {
           firstname: "",
           surname: "",
           email: "",
+          department: "",
           password: "",
           confirmPassword: "",
-          userType: "",
+          dob: "",
         });
       } else {
         setError(data.message || "Registration failed");
@@ -101,6 +103,23 @@ export default function Register() {
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
+
+          <select
+            name="department"
+            value={formData.department}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Which department are you in?</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Neurology">Neurology</option>
+            <option value="Pediatrics">Pediatrics</option>
+            <option value="General Surgery">General Surgery</option>
+            <option value="Emergency">Emergency</option>
+            <option value="Unsure">Unsure</option>
+          </select>
+
           <input
             type="password"
             name="password"
@@ -120,28 +139,14 @@ export default function Register() {
             required
           />
 
-          <div className="flex justify-center gap-4">
-            <label className="flex items-center space-x-2">
-              <input
-                type="radio"
-                name="userType"
-                value="parent"
-                checked={formData.userType === "parent"}
-                onChange={handleChange}
-              />
-              <span>Parent</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input
-                type="radio"
-                name="userType"
-                value="child"
-                checked={formData.userType === "child"}
-                onChange={handleChange}
-              />
-              <span>Child</span>
-            </label>
-          </div>
+          <input
+            type="date"
+            name="dob"
+            value={formData.dob}
+            onChange={handleChange}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
 
           <button
             type="submit"

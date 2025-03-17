@@ -27,9 +27,9 @@ db.connect((err) => {
 
 // API Route to Handle Registration (WITH PASSWORD HASHING)
 app.post("/register", async (req, res) => {
-  const { username, firstname, surname, email, password, userType } = req.body;
+  const { username, firstname, surname, email, department, password, dob } = req.body;
 
-  if (!username || !firstname || !surname || !email || !password || !userType) {
+  if (!username || !firstname || !surname || !email || !department || !password || !dob) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
@@ -39,8 +39,8 @@ app.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Insert user into database with hashed password
-    const sql = "INSERT INTO users (username, first_name, surname, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
-    db.query(sql, [username, firstname, surname, email, hashedPassword, userType], (err, result) => {
+    const sql = "INSERT INTO users (username, first_name, surname, email, department, password, dob) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    db.query(sql, [username, firstname, surname, email, department, hashedPassword, dob], (err, result) => {
       if (err) {
         return res.status(500).json({ error: "Error inserting user into database" });
       }
