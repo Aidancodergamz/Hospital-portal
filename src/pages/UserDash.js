@@ -1,12 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function UserDash() {
+  const [message, setMessage] = useState("Loading...");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login"); // Redirect if no token
+      return;
+    }
+
+    fetch("http://localhost:5000/userdash", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`, // Send JWT token to backend
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          navigate("/login"); // Redirect if authentication fails
+        } else {
+          setMessage(data.message);
+        }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        navigate("/login"); // Redirect on error
+      });
+  }, [navigate]);
+
   return (
     <div>
-      <h1>Welcome to the user dashboard</h1>
+      <h1>{message}</h1>
     </div>
-  )
+  );
 }
 
-export default UserDash
-
+export default UserDash;

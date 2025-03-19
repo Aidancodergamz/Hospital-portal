@@ -36,7 +36,7 @@ export default function Login() {
         return;
       }
 
-      localStorage.setItem("username", JSON.stringify(data.username)); // Store user info
+      localStorage.setItem("token", data.token); // Store the token
       navigate("/userdash"); // Redirect to UserDash
     } catch (error) {
       setError("Server error, please try again later");

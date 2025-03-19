@@ -31,6 +31,7 @@ db.connect((err) => {
 // Middleware to verify JWT
 
 const verifyToken = (req, res, next) => {
+  console.log("verifyToken middleware is running..."); // Debugging line
   const token = req.headers["authorization"];
   
   if (!token) {
@@ -105,6 +106,7 @@ app.post("/login", (req, res) => {
 
 // Protected Route: User Dashboard
 app.get("/userdash", verifyToken, (req, res) => {
+  console.log("Received request at /userdash");
   res.json({ message: "Welcome to your dashboard!", user: req.user });
 });
 
