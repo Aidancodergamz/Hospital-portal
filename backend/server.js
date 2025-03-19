@@ -29,7 +29,7 @@ db.connect((err) => {
 });
 
 // Middleware to verify JWT
-token
+
 const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"];
   
