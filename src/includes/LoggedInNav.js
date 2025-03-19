@@ -68,8 +68,8 @@ export default function LoggedInNav() {
 
               {/* Display User Info */}
               <div className="text-white mb-6">
-                <p className="text-lg font-semibold">{userData.first_name}</p>
-                <p className="text-sm">{userData.department}</p>
+                <p className="text-lg font-semibold">Welcome {userData.first_name}!</p>
+                <p className="text-sm">You're in: {userData.department}</p>
               </div>
 
               <div className="hidden sm:block">
@@ -116,11 +116,6 @@ export default function LoggedInNav() {
           </>
         )}
       </Disclosure>
-
-      {/* Main Content Area */}
-      <div className="flex-1 p-6 ml-64">
-        <h1 className="text-2xl font-bold">Dashboard Content</h1>
-      </div>
     </div>
   );
 }

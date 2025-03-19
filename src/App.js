@@ -12,7 +12,7 @@ import Games from "./pages/Games";
 
 function Layout({ children }) {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/userdash"; // Hide Navigation for UserDash
+  const hideNavbar = location.pathname === "/userdash" || location.pathname === "/games"; // Hide Navigation for UserDash and Games
 
   return (
     <div>
