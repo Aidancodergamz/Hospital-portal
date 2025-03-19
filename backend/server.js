@@ -29,13 +29,18 @@ db.connect((err) => {
 });
 
 // Middleware to verify JWT
-
 const verifyToken = (req, res, next) => {
-  console.log("verifyToken middleware is running..."); // Debugging line
-  const token = req.headers["authorization"];
-  
-  if (!token) {
+  console.log("verifyToken middleware is running..."); // Debugging
+  const authHeader = req.headers["authorization"];
+
+  if (!authHeader) {
     return res.status(403).json({ error: "Access denied. No token provided." });
+  }
+
+  const token = authHeader.split(" ")[1]; // Extract token after "Bearer "
+
+  if (!token) {
+    return res.status(403).json({ error: "Token format incorrect." });
   }
 
   try {
@@ -43,9 +48,10 @@ const verifyToken = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({ error: "Invalid token." });
+    return res.status(401).json({ error: "Invalid token." });
   }
 };
+
 
 // API Route to Handle Registration
 app.post("/register", async (req, res) => {
@@ -101,6 +107,24 @@ app.post("/login", (req, res) => {
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
 
     res.json({ message: "Login successful", token });
+  });
+});
+
+// Fetch Logged-in User Data
+app.get("/userdata", verifyToken, (req, res) => {
+  const userId = req.user.id;
+  const sql = "SELECT first_name, department FROM users WHERE id = ?";
+
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(results[0]); // Send user data (first_name, department)
   });
 });
 

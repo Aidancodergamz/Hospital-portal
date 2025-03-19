@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoggedInNav from "../includes/LoggedInNav";
 
 function UserDash() {
   const [message, setMessage] = useState("Loading...");
@@ -34,9 +35,12 @@ function UserDash() {
   }, [navigate]);
 
   return (
+    <>
+    <LoggedInNav />
     <div>
-      <h1>{message}</h1>
+      <h1>Welcome to your dashboard</h1>
     </div>
+    </>
   );
 }
 
