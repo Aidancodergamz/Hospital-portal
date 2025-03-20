@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2025 at 10:08 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Mar 20, 2025 at 01:04 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,7 +45,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `surname`, `email`, `password`, `username`, `dob`, `department`) VALUES
 (40, 'Aidan', 'O\'Rourke', 'aidanorourke@hotmail.co.uk', '$2b$10$ZX3OXt/kUT8dAApFYY.TruQzsh1dQ46laALkob9rdFolEL0Z45Cjq', 'User', '1992-06-06', 'General Surgery'),
 (42, 'Iram', 'Rafique', 'test2@gmail.com', '$2b$10$ZJfuyMY6P31yBpysf8TGO.XOxrgS97fhicWPBoez2Njhe/YCTctJy', 'test2', '2018-09-09', 'Cardiology'),
-(43, 'juana', 'lopez', 'juanalopez@hotmaill.xpxmx', '$2b$10$X/GccdecSSWQ1i9uAdqhn.5YmMt0o6KMn9D0nMdt0zITG.IJiaXYG', 'juana', '1974-03-23', 'Pediatrics');
+(43, 'juana', 'lopez', 'juanalopez@hotmaill.xpxmx', '$2b$10$X/GccdecSSWQ1i9uAdqhn.5YmMt0o6KMn9D0nMdt0zITG.IJiaXYG', 'juana', '1974-03-23', 'Pediatrics'),
+(44, 'Luis', 'Miguel', 'Lm@gmail.ar', '$2b$10$ozA4S6z8TySAXRg9w7KVjemMekrULSB84eB0qbHvdX25Xj7wF.Nm.', 'Practice', '1957-05-17', 'Neurology');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +68,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
