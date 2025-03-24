@@ -72,13 +72,13 @@ function UserDash() {
                 </a>
               </li>
               <li>
-                <a href="/profile" className="text-green-600 hover:underline">
-                  👤 View Profile
+                <a href="/map" className="text-green-600 hover:underline">
+                  🗺️ Interactive Map
                 </a>
               </li>
               <li>
-                <a href="/settings" className="text-green-600 hover:underline">
-                  ⚙️ Settings
+                <a href="/department" className="text-green-600 hover:underline">
+                  🏥 About My Department
                 </a>
               </li>
             </ul>
