@@ -25,7 +25,7 @@ function InteractiveMap() {
       {/* Main Content */}
       <div className="flex-1 p-6">
       <h1 className="text-2xl font-bold text-gray-800 text-center">Interactive Map</h1>
-<p className="mt-2 text-gray-600 text-center mx-auto">Here is a map of the children's department that you can interact with. 😊</p>
+<p className="mt-2 text-gray-600 text-center mx-auto">Here is a map of the entire hospital that you can interact with. 😊</p>
 
         
         {/* Containers */}

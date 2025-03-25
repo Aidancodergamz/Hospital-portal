@@ -112,12 +112,13 @@ export default function Register() {
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">Which department are you in?</option>
-            <option value="Cardiology">Cardiology</option>
-            <option value="Neurology">Neurology</option>
-            <option value="Pediatrics">Pediatrics</option>
-            <option value="General Surgery">General Surgery</option>
-            <option value="Emergency">Emergency</option>
-            <option value="Unsure">Unsure</option>
+            <option value="X-Ray">X-Ray</option>
+            <option value="MRI">MRI</option>
+            <option value="Clinics">Clinics</option>
+            <option value="Wards">Wards</option>
+            <option value="Play Areas">Play Areas</option>
+            <option value="Surgical Theatres">Surgical Theatres</option>
+            <option value="Children's Wing">Children's Wing</option>
           </select>
 
           <input
