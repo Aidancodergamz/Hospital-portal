@@ -6,8 +6,8 @@ import { Rainbow } from "lucide-react";
 const navigation = [
   { name: "UserDash", href: "/userdash", current: false },
   { name: "Games", href: "./games", current: false },
-  { name: "Interactive Map", href: "./map", current: false },
-  { name: "About My Department", href: "./department", current: false },
+  { name: "InteractiveMap", href: "./interactiveMap", current: false },
+  { name: "Department", href: "./department", current: false },
 ];
 
 function classNames(...classes) {

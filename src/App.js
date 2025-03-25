@@ -9,10 +9,12 @@ import UserDash from "./pages/UserDash";
 import PrivateRoute from "./PrivateRoute";
 import LoggedInNav from "./includes/LoggedInNav";
 import Games from "./pages/Games";
+import InteractiveMap from "./pages/InteractiveMap";
+import Department from "./pages/Department";
 
 function Layout({ children }) {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/userdash" || location.pathname === "/games"; // Hide Navigation for UserDash and Games
+  const hideNavbar = location.pathname === "/userdash" || location.pathname === "/games" || location.pathname === "/interactiveMap" || location.pathname === "/department"; // This hides the navigation bar for those logged in and replaces it with a side navigation bar tailored for logged in users.
 
   return (
     <div>
@@ -33,6 +35,8 @@ function App() {
           <Route path="/userdash" element={<UserDash />} />
           <Route path="/loggedinnav" element={<LoggedInNav />} />
           <Route path="/games" element={<Games />} />
+          <Route path="/interactiveMap" element={<InteractiveMap />} />
+          <Route path="/department" element={<Department />} />
           <Route element={<PrivateRoute />} />
         </Routes>
       </Layout>

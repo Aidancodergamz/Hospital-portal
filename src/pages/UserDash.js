@@ -72,7 +72,7 @@ function UserDash() {
                 </a>
               </li>
               <li>
-                <a href="/map" className="text-green-600 hover:underline">
+                <a href="/interactiveMap" className="text-green-600 hover:underline">
                   🗺️ Interactive Map
                 </a>
               </li>
