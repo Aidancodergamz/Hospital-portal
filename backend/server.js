@@ -54,7 +54,7 @@ const verifyToken = (req, res, next) => {
 // Route to check if a user is at least 14 years old
 app.get("/check-age", verifyToken, (req, res) => {
   const userId = req.user.id;
-  
+
   const sql = "SELECT dob FROM users WHERE id = ?";
   db.query(sql, [userId], (err, results) => {
     if (err) {
@@ -67,22 +67,23 @@ app.get("/check-age", verifyToken, (req, res) => {
 
     const dob = new Date(results[0].dob);
     const today = new Date();
-    const age = today.getFullYear() - dob.getFullYear();
+
+    // Calculate the age correctly
+    let age = today.getFullYear() - dob.getFullYear();
     const monthDiff = today.getMonth() - dob.getMonth();
     const dayDiff = today.getDate() - dob.getDate();
 
-    // Adjust age if birthday hasn't happened yet this year
+    // If the user's birthday hasn't occurred yet this year, subtract 1 from age
     if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
     }
 
-    if (age >= 14) {
-      res.json({ allowed: true });
-    } else {
-      res.json({ allowed: false });
-    }
+    console.log(`User DOB: ${dob.toISOString()}, Age Calculated: ${age}`);
+
+    res.json({ allowed: age >= 14 });
   });
 });
+
 
 // API Route to Handle Registration
 app.post("/register", async (req, res) => {

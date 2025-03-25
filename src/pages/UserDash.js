@@ -15,10 +15,10 @@ function UserDash() {
       return;
     }
 
-    fetch("http://localhost:5000/userdash", {
+    fetch("http://localhost:5000/userdata", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
@@ -59,7 +59,7 @@ function UserDash() {
               {userData?.first_name?.charAt(0).toUpperCase() || "?"}
             </div>
             <h2 className="text-xl font-semibold mt-4">{userData?.first_name}</h2>
-            <p className="text-gray-600">{userData?.department || "Unknown Department"}</p>
+            <p className="text-gray-600">{userData?.department}</p>
           </div>
 
           {/* Quick Links */}
