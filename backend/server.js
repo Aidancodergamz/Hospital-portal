@@ -7,16 +7,16 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
-app.use(express.json()); // Allow JSON data in requests
+app.use(express.json());
 
-const SECRET_KEY = process.env.JWT_SECRET || "your_jwt_secret"; // Change this to an environment variable
+const SECRET_KEY = process.env.JWT_SECRET || "your_jwt_secret";
 
 // Create MySQL Connection
 const db = mysql.createConnection({
-  host: "localhost", // Change to your MySQL server
-  user: "root", // Change to your MySQL username
-  password: "", // Change to your MySQL password
-  database: "hospital_portal", // Change to your database name
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "hospital_portal",
 });
 
 // Connect to MySQL
@@ -30,14 +30,13 @@ db.connect((err) => {
 
 // Middleware to verify JWT
 const verifyToken = (req, res, next) => {
-  console.log("verifyToken middleware is running..."); // Debugging
   const authHeader = req.headers["authorization"];
 
   if (!authHeader) {
     return res.status(403).json({ error: "Access denied. No token provided." });
   }
 
-  const token = authHeader.split(" ")[1]; // Extract token after "Bearer "
+  const token = authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(403).json({ error: "Token format incorrect." });
@@ -52,6 +51,38 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Route to check if a user is at least 14 years old
+app.get("/check-age", verifyToken, (req, res) => {
+  const userId = req.user.id;
+  
+  const sql = "SELECT dob FROM users WHERE id = ?";
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const dob = new Date(results[0].dob);
+    const today = new Date();
+    const age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    const dayDiff = today.getDate() - dob.getDate();
+
+    // Adjust age if birthday hasn't happened yet this year
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+
+    if (age >= 14) {
+      res.json({ allowed: true });
+    } else {
+      res.json({ allowed: false });
+    }
+  });
+});
 
 // API Route to Handle Registration
 app.post("/register", async (req, res) => {
@@ -73,7 +104,6 @@ app.post("/register", async (req, res) => {
       res.json({ message: "User registered successfully!" });
     });
   } catch (error) {
-    console.error("Error hashing password:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -124,14 +154,8 @@ app.get("/userdata", verifyToken, (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.json(results[0]); // Send user data (first_name, department)
+    res.json(results[0]);
   });
-});
-
-// Protected Route: User Dashboard
-app.get("/userdash", verifyToken, (req, res) => {
-  console.log("Received request at /userdash");
-  res.json({ message: "Welcome to your dashboard!", user: req.user });
 });
 
 // Start the Server
