@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import LoggedInNav from '../includes/LoggedInNav';
 
 function InteractiveMap() {
-  // State to track the active marker
+  
   const [activeMarker, setActiveMarker] = useState(null);
 
-  // Marker positions (adjust as per your map's layout)
   const markerPositions = {
     X_ray: { top: "60%", left: "35%", color: "red", fontSize: "3rem", backgroundColor: "red" },
     Neurology: { top: "85%", left: "42%", color: "blue", fontSize: "3rem", backgroundColor: "blue" },
@@ -17,12 +16,11 @@ function InteractiveMap() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar Navigation */}
       <div className="w-64 bg-white shadow-md">
         <LoggedInNav />
       </div>
 
-      {/* Main Content */}
+      {/* Main section */}
       <div className="flex-1 p-6">
       <h1 className="text-2xl font-bold text-gray-800 text-center">Interactive Map</h1>
 <p className="mt-2 text-gray-600 text-center mx-auto">Here is a map of the entire hospital that you can interact with. 😊</p>

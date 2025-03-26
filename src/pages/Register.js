@@ -140,14 +140,17 @@ export default function Register() {
             required
           />
 
+          <label htmlFor="dob" className="block text-sm font-medium text-gray-700">Date of Birth:</label>
           <input
             type="date"
+            id="dob"
             name="dob"
             value={formData.dob}
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
+
 
           <button
             type="submit"

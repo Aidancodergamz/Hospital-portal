@@ -36,8 +36,8 @@ export default function Login() {
         return;
       }
 
-      localStorage.setItem("token", data.token); // Store the token
-      navigate("/userdash"); // Redirect to UserDash
+      localStorage.setItem("token", data.token); 
+      navigate("/userdash"); 
     } catch (error) {
       setError("Server error, please try again later");
     }

@@ -14,7 +14,7 @@ import Department from "./pages/Department";
 
 function Layout({ children }) {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/userdash" || location.pathname === "/games" || location.pathname === "/interactiveMap" || location.pathname === "/department"; // This hides the navigation bar for those logged in and replaces it with a side navigation bar tailored for logged in users.
+  const hideNavbar = location.pathname === "/userdash" || location.pathname === "/games" || location.pathname === "/interactiveMap" || location.pathname === "/department"; 
 
   return (
     <div>

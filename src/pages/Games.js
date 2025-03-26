@@ -3,9 +3,8 @@ import LoggedInNav from "../includes/LoggedInNav";
 
 function Games() {
   const [userAge, setUserAge] = useState(null);
-  const [loading, setLoading] = useState(true); // Add a loading state
+  const [loading, setLoading] = useState(true);
 
-  // Array of games with names, links, images, and background colors
   const games = [
     {
       name: "Pac-Man",
@@ -60,7 +59,7 @@ function Games() {
         const response = await fetch("http://localhost:5000/check-age", {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`, // Ensure it's correctly formatted
+            "Authorization": `Bearer ${token}`, 
             "Accept": "application/json",
           },
         });
@@ -77,7 +76,7 @@ function Games() {
       } catch (error) {
         console.error("Error fetching user age:", error);
       } finally {
-        setLoading(false); // Set loading to false after the data has been fetched
+        setLoading(false);
       }
     };
 
@@ -96,7 +95,7 @@ function Games() {
           </p>
 
           {loading ? (
-            <p>Loading user data...</p> // Or a spinner
+            <p>Loading user data...</p> 
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {games.map((game, index) => (
