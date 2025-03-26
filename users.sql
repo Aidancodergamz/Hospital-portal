@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2025 at 09:14 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Mar 26, 2025 at 10:36 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `surname`, `email`, `password`, `username`, `dob`, `department`) VALUES
 (47, 'Aidan', 'O\'Rourke', 'aidanorourke@hotmail.co.uk', '$2b$10$HeIvRyqH0CyIr/P69PhCSuXWAxNNeTHgmPzKUkrYJ8rzqUFUJft4a', 'User', '1992-06-06', 'X-Ray'),
-(48, 'Jesse', 'Pinkman', 'kiddo@hotmail.com', '$2b$10$SmF2CX47x.Q/yHVTkwWGquB/2uIeNFVKAVopLCoDT.G3FrmSawqcO', 'KidUser', '2017-05-01', 'Children\'s Wing'),
-(50, 'julieta', 'Rodriguez', 'julieta@hotmail.co.uk', '$2b$10$ng/SsIZKIVorxkvdBF4k5uBz6DPGf0mLH5KYqPb9KVzh0gCg3IRKy', 'julieta', '1974-03-23', 'Clinics'),
-(51, 'James', 'McAvoy', 'Jamieboy@gmail.com', '$2b$10$orKSz5p6ffwGMQIY8.y.GelbKq7stlenfXCzja70ymMrNjnYET7xm', 'NewKid', '2015-04-25', 'Children\'s Wing');
+(51, 'James', 'McAvoy', 'Jamieboy@gmail.com', '$2b$10$orKSz5p6ffwGMQIY8.y.GelbKq7stlenfXCzja70ymMrNjnYET7xm', 'NewKid', '2015-04-25', 'Children\'s Wing'),
+(53, 'Test', 'Testing', 'Test@gmail.com', '$2b$10$FbbThuVIjKmAJcm6R7crv.vS.QkQA2UD2zJbGWjff0Z86AaUERNcy', 'Practice', '2017-05-05', 'Surgical Theatres');
 
 --
 -- Indexes for dumped tables
@@ -68,7 +67,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
